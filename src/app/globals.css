@@ -12,8 +12,9 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Dark mode is disabled when .light class is present on html element */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not(.light) {
     --background: #0a0a0a;
     --foreground: #ededed;
   }

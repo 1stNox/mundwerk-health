@@ -16,6 +16,7 @@
     "staging": {
       "vars": {
         "NEXT_PUBLIC_ENABLE_NAVBAR": "true",
+        "NEXT_PUBLIC_FORCE_LIGHT_MODE": "true",
       },
       "routes": [
         {
@@ -27,6 +28,7 @@
     "production": {
       "vars": {
         "NEXT_PUBLIC_ENABLE_NAVBAR": "false",
+        "NEXT_PUBLIC_FORCE_LIGHT_MODE": "false",
       },
       "routes": [
         {

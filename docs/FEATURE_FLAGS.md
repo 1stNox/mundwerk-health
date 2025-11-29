@@ -20,6 +20,7 @@ Feature flags allow you to enable or disable features without changing code. The
 
    ```bash
    NEXT_PUBLIC_ENABLE_NAVBAR=true
+   NEXT_PUBLIC_FORCE_LIGHT_MODE=true
    ```
 
 3. **Restart your development server** to apply changes:
@@ -97,6 +98,38 @@ Edit `wrangler.jsonc` and modify the `vars` section for each environment:
   - No navigation elements visible
   - Simple, minimal view
 
+### `NEXT_PUBLIC_FORCE_LIGHT_MODE`
+
+**Purpose:** Forces the entire application to use light mode, disabling dark mode regardless of system preferences.
+
+**Accepted Values:**
+
+- `true`, `1`, `yes` (case-insensitive) → Forces light mode
+- `false`, `0`, `no` (case-insensitive) → Allows dark mode based on system preferences
+
+**Default:** `false`
+
+**Behavior:**
+
+- **When enabled (`true`):**
+  - Application always uses light color scheme
+  - Dark mode classes are not applied
+  - System/browser dark mode preferences are ignored
+  - Background, text, and all components use light variants
+  - CSS dark mode media queries are suppressed
+
+- **When disabled (`false`):**
+  - Application respects system/browser dark mode preferences
+  - Dark mode styles apply when user's system is in dark mode
+  - Normal dark mode behavior
+
+**Implementation:**
+
+- Adds `light` class to root HTML element when enabled
+- CSS media query `@media (prefers-color-scheme: dark)` only applies to `:root:not(.light)`
+- Components use utility function `getDarkModeClass()` to conditionally apply dark mode classes
+- All Tailwind `dark:` classes are conditionally removed when flag is enabled
+
 ## Implementation Details
 
 ### Code Structure
@@ -125,6 +158,14 @@ if (featureFlags.enableNavbar) {
 } else {
   // Feature is disabled
 }
+
+// For conditional dark mode classes
+import { getDarkModeClass } from "@/lib/utils";
+
+// Single dark mode class
+const className = `bg-white ${getDarkModeClass("dark:bg-gray-900")}`;
+
+// The dark: class will be empty string if forceLightMode is true
 ```
 
 ### Type Safety
@@ -134,6 +175,7 @@ Environment variables are typed in `src/types/env.d.ts`:
 ```typescript
 interface ProcessEnv {
   NEXT_PUBLIC_ENABLE_NAVBAR?: string;
+  NEXT_PUBLIC_FORCE_LIGHT_MODE?: string;
 }
 ```
 

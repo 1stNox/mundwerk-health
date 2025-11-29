@@ -37,6 +37,18 @@ export const featureFlags = {
    * Default: false
    */
   enableNavbar: parseEnvBoolean(process.env.NEXT_PUBLIC_ENABLE_NAVBAR, false),
+
+  /**
+   * Force light mode across the entire application
+   * When enabled, dark mode will be disabled and light mode will be enforced
+   *
+   * Environment variable: NEXT_PUBLIC_FORCE_LIGHT_MODE
+   * Default: false
+   */
+  forceLightMode: parseEnvBoolean(
+    process.env.NEXT_PUBLIC_FORCE_LIGHT_MODE,
+    false,
+  ),
 } as const;
 
 export type FeatureFlags = typeof featureFlags;
