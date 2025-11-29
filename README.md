@@ -1,63 +1,98 @@
-# Next.js Framework Starter
+# Mundwerk Health
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/templates/tree/main/next-starter-template)
-
-<!-- dash-content-start -->
-
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). It's deployed on Cloudflare Workers as a [static website](https://developers.cloudflare.com/workers/static-assets/).
-
-This template uses [OpenNext](https://opennext.js.org/) via the [OpenNext Cloudflare adapter](https://opennext.js.org/cloudflare), which works by taking the Next.js build output and transforming it, so that it can run in Cloudflare Workers.
-
-<!-- dash-content-end -->
-
-Outside of this repo, you can start a new project with this template using [C3](https://developers.cloudflare.com/pages/get-started/c3/) (the `create-cloudflare` CLI):
-
-```bash
-npm create cloudflare@latest -- --template=cloudflare/templates/next-starter-template
-```
-
-A live public deployment of this template is available at [https://next-starter-template.templates.workers.dev](https://next-starter-template.templates.workers.dev)
+A modern, mobile-first health application built with Next.js.
 
 ## Getting Started
 
-First, run:
+First, install dependencies:
 
 ```bash
-npm install
-# or
-yarn install
-# or
 pnpm install
-# or
-bun install
 ```
 
-Then run the development server (using the package manager of your choice):
+Copy the environment variables example file:
 
 ```bash
-npm run dev
+cp .env.local.example .env.local
+```
+
+Then, run the development server:
+
+```bash
+pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Feature Flags
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Feature flags are controlled via environment variables. This allows you to enable/disable features without changing code.
 
-## Deploying To Production
+### Quick Setup
 
-| Command                           | Action                                       |
-| :-------------------------------- | :------------------------------------------- |
-| `npm run build`                   | Build your production site                   |
-| `npm run preview`                 | Preview your build locally, before deploying |
-| `npm run build && npm run deploy` | Deploy your production site to Cloudflare    |
-| `npm wrangler tail`               | View real-time logs for all Workers          |
+1. Copy the example environment file:
 
-## Learn More
+   ```bash
+   cp .env.local.example .env.local
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. Edit `.env.local` to enable/disable features:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   NEXT_PUBLIC_ENABLE_NAVBAR=true  # or false
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+3. Restart the dev server to apply changes
+
+### Available Feature Flags
+
+- **`NEXT_PUBLIC_ENABLE_NAVBAR`**: Enable/disable the navigation header
+  - Default: `false` (shows "Under Construction" screen)
+  - Set to `true` to show the full navbar
+
+📖 **For detailed documentation:**
+
+- [Feature Flags Guide](./docs/FEATURE_FLAGS.md) - Comprehensive feature flags documentation
+- [Deployment Guide](./docs/DEPLOYMENT.md) - Deployment instructions and best practices
+- [Configuration Summary](./CONFIGURATION_SUMMARY.md) - Quick reference for all environments
+- [Quick Start](./QUICK_START.md) - Visual testing guide
+
+## Project Structure
+
+```
+src/
+├── app/              # Next.js app directory
+│   ├── layout.tsx    # Root layout with navbar
+│   ├── page.tsx      # Home page
+│   └── globals.css   # Global styles
+├── components/       # React components
+│   └── MobileNavbar.tsx  # Mobile-first navigation component
+└── config/           # Configuration files
+    └── featureFlags.ts   # Feature flags configuration
+```
+
+## Tech Stack
+
+- **Framework**: Next.js 15
+- **React**: 19
+- **Styling**: Tailwind CSS 4
+- **UI Components**: Headless UI
+- **Icons**: Heroicons
+- **TypeScript**: 5.8
+- **Deployment**: Cloudflare Workers (via @opennextjs/cloudflare)
+
+## Scripts
+
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm start` - Start production server
+- `pnpm lint` - Run ESLint
+- `pnpm lint:fix` - Fix ESLint errors
+- `pnpm format` - Format code with Prettier
+- `pnpm preview` - Preview production build locally
+- `pnpm deploy:staging` - Deploy to staging (navbar enabled)
+- `pnpm deploy:production` - Deploy to production (navbar disabled)
+
+## License
+
+Private
