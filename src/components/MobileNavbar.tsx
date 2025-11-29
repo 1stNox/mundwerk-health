@@ -35,6 +35,7 @@ export default function MobileNavbar() {
               alt="Mundwerk Health Logo"
               width={80}
               height={80}
+              priority
               className="h-20 w-20"
             />
           </Link>
@@ -86,6 +87,7 @@ export default function MobileNavbar() {
                 alt="Mundwerk Health Logo"
                 width={80}
                 height={80}
+                priority
                 className="h-20 w-20"
               />
             </Link>
